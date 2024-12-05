@@ -1,42 +1,41 @@
-"use client";
-import React, { useState } from "react";
+'use client'
+import React, { useState } from 'react'
 
-type WalletType = "phantom" | "okx";
-
+type WalletType = 'phantom' | 'okx'
 const WalletConnect: React.FC = () => {
-	const [walletAddress, setWalletAddress] = useState<string | null>(null);
-	const [connecting, setConnecting] = useState<boolean>(false);
-	const [walletError, setWalletError] = useState<string | null>(null);
+	const [walletAddress, setWalletAddress] = useState<string | null>(null)
+	const [connecting, setConnecting] = useState<boolean>(false)
+	const [walletError, setWalletError] = useState<string | null>(null)
 
 	const connectWallet = async (walletType: WalletType) => {
-		setConnecting(true);
-		setWalletError(null);
+		setConnecting(true)
+		setWalletError(null)
 
 		try {
-			let response;
+			let response
 
 			if (walletType === "phantom") {
 				if (window.solana && window.solana.isPhantom) {
-					response = await window.solana.connect();
-					setWalletAddress(response.publicKey.toString());
+					response = await  window.solana.connect()
+					setWalletAddress(response.publicKey.toString())
 				} else {
-					throw new Error("Phantom wallet is not installed.");
+					throw new Error("Phantom wallet is not installed.")
 				}
 			} else if (walletType === "okx") {
 				if (window.okxwallet) {
-					response = await window.okxwallet.solana.connect();
-					setWalletAddress(response.publicKey.toString());
+					response = await window.okxwallet.solana.connect()
+					setWalletAddress(response.publicKey.toString())
 				} else {
-					throw new Error("OKX wallet is not installed.");
+					throw new Error("OKX wallet is not installed.")
 				}
 			}
 		} catch (error: any) {
-			setWalletError(error.message || "Failed to connect wallet.");
-			console.error(error);
+			setWalletError(error.message || "Failed to connect wallet.")
+			console.error(error)
 		} finally {
-			setConnecting(false);
+			setConnecting(false)
 		}
-	};
+	}
 
 	return (
 		<>
@@ -68,7 +67,7 @@ const WalletConnect: React.FC = () => {
 				{walletError && <div className="text-red-500">{walletError}</div>}
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default WalletConnect;
+export default WalletConnect
