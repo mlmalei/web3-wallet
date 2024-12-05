@@ -1,0 +1,30 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": [
+    "source.formatDocument",
+    "source.fixAll.eslint",
+    "source.fixAll.stylelint",
+    "source.organizeImports"
+  ],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "**/node_modules": false
+  },
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
