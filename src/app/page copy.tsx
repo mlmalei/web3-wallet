@@ -1,7 +1,11 @@
 'use client'
 import WalletConnect from '@/components/WalletConnect'
 import { ConnectionContext } from '@/hooks/useConnection'
-import { clusterApiUrl, Connection, type ConnectionConfig } from '@solana/web3.js'
+import {
+  clusterApiUrl,
+  Connection,
+  type ConnectionConfig,
+} from '@solana/web3.js'
 import type { FC, ReactNode } from 'react'
 import { useMemo } from 'react'
 
@@ -23,9 +27,16 @@ export default function Home() {
     endpoint,
     config = { commitment: 'confirmed' },
   }) => {
-    const connection = useMemo(() => new Connection(endpoint, config), [endpoint, config])
+    const connection = useMemo(
+      () => new Connection(endpoint, config),
+      [endpoint, config],
+    )
 
-    return <ConnectionContext.Provider value={{ connection }}>{children}</ConnectionContext.Provider>
+    return (
+      <ConnectionContext.Provider value={{ connection }}>
+        {children}
+      </ConnectionContext.Provider>
+    )
   }
 
   const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -34,9 +45,7 @@ export default function Home() {
     const endpoint = useMemo(() => clusterApiUrl(network), [network])
 
     return (
-      <ConnectionProvider endpoint={endpoint}>
-        {children}
-      </ConnectionProvider>
+      <ConnectionProvider endpoint={endpoint}>{children}</ConnectionProvider>
     )
   }
 
